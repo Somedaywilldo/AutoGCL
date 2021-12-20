@@ -12,9 +12,14 @@ joint_strategy_vis.ipynb
 old
 paper_mnist_vis.ipynb
 pretrain_models
-semi_supervised
-transfer
 unsupervised
+transfer_exp
 utils.py
 .vscode
 .DS_Store
+run0.sh
+run1.sh
+run2.sh
+.ipynb_checkpoints
+transfer.md
+semi_supervised
