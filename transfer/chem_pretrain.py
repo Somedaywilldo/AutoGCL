@@ -56,7 +56,7 @@ def get_args():
                         help='dropout ratio (default: 0)')
     parser.add_argument('--JK', type=str, default="last",
                         help='how the node features across layers are combined. last, sum, max or concat')
-    parser.add_argument('--dataset_root', type=str, default = 'chem_data', help='root directory of dataset')
+    parser.add_argument('--dataset_root', type=str, default = 'dataset', help='root directory of dataset')
     parser.add_argument('--dataset', type=str, default = 'chembl_filtered', help='root directory of dataset. For now, only classification.')
     # chembl_filtered
     parser.add_argument('--exp', type=str, default = 'chem', help='')
@@ -406,3 +406,4 @@ if __name__ == "__main__":
             model_name = "cl_view_gen2_{}.pth".format(epoch)
             model_path = os.path.join(args.save, 'model', model_name)
             torch.save(view_gen2.state_dict(), model_path)
+ 

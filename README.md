@@ -9,9 +9,9 @@ Please check the our arXiv version [here](https://arxiv.org/abs/2109.10259) for 
 ## Requirement
 
 ```shell
+rdkit
 pytorch 1.10.0
 pytorch_geometric 2.0.2
-rdkit
 ```
 
 ## Dataset Preparation
@@ -25,6 +25,21 @@ $ python download_dataset.py
 ## Semi-supervised Learning
 
 ## Transfer Learning
+
+### Prepare the Dataset
+
+```shell
+$ cd transfer
+$ wget http://snap.stanford.edu/gnn-pretrain/data/chem_dataset.zip
+$ unzip chem_dataset.zip
+$ rm -rf dataset/*/processed
+```
+
+### Run the Fine-tuning Experiments
+
+```shell
+$ sh run_chem.sh
+```
 
 ## Citation
 

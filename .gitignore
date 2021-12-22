@@ -13,7 +13,6 @@ old
 paper_mnist_vis.ipynb
 pretrain_models
 unsupervised
-transfer_exp
 utils.py
 .vscode
 .DS_Store
@@ -23,3 +22,5 @@ run2.sh
 .ipynb_checkpoints
 transfer.md
 semi_supervised
+dataset/
+*.zip
