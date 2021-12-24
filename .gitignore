@@ -7,7 +7,7 @@ exp
 joint_strategy_vis.ipynb
 old
 paper_mnist_vis.ipynb
-pretrain_models
+# pretrain_models
 # unsupervised
 unsupervised/unsupervised_exp
 utils.py
@@ -22,3 +22,6 @@ semi_supervised
 dataset/
 *.zip
 tmp/
+pretrain_models/joint_strategy_vis
+pretrain_models/mnist_superpixel_vis
+transfer/transfer_exp
