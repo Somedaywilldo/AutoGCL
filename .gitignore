@@ -12,7 +12,8 @@ joint_strategy_vis.ipynb
 old
 paper_mnist_vis.ipynb
 pretrain_models
-unsupervised
+# unsupervised
+unsupervised/unsupervised_exp
 utils.py
 .vscode
 .DS_Store
