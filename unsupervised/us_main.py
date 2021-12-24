@@ -426,17 +426,10 @@ def graph_cl_exp(args):
     dataset_name = args.dataset
 
     path = os.path.join('unsupervised_data/graph_cl')
-    # kf = StratifiedKFold(n_splits=10, shuffle=True, random_state=None)
 
-    # dataset = TUDataset(path, name=dataset_name, aug=args.aug).shuffle()
-    # dataset = TUDataset(path, name=dataset_name, aug='none').shuffle()
     dataset = TUDataset_aug(path, name=dataset_name, aug=args.aug).shuffle()
     dataset_eval = TUDataset_aug(path, name=dataset_name, aug='none').shuffle()
-    # dataset = get_dataset(args.dataset, sparse=True, feat_str='deg+odeg100', root='data')
-    # dataset = dataset.shuffle()
-    # # dataset_eval = dataset
-    # logger.info(len(dataset))
-    # logger.info(dataset.get_num_feature())
+
     try:
         dataset_num_features = dataset.get_num_feature()
     except:
@@ -492,17 +485,13 @@ def graph_cl_exp(args):
 
             x_aug = model(data_aug)
 
-            # print(x)
-            # print(x_aug)
             loss = model.loss_cal(x, x_aug)
             # logger.info(loss.item())
             loss_all += loss.item() * data.num_graphs
             total_graphs += data.num_graphs
             loss.backward()
             optimizer.step()
-            # print('batch')
-            # break
-        
+
         loss_all /= total_graphs
         logger.info('Epoch: {}, Loss: {:.4f}'.format(epoch, loss_all))
 

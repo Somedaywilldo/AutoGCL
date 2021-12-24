@@ -205,15 +205,11 @@ def linearsvc_classify(x, y, search):
     return np.mean(accuracies_val), np.mean(accuracies)
 
 def svc_classify(x, y, search):
-    # embed()
-    # exit()
-
     kf = StratifiedKFold(n_splits=10, shuffle=True, random_state=None)
     
     accuracies = []
     accuracies_val = []
     for train_index, test_index in kf.split(x, y):
-
         # test
         x_train, x_test = x[train_index], x[test_index]
         y_train, y_test = y[train_index], y[test_index]
@@ -226,27 +222,8 @@ def svc_classify(x, y, search):
         classifier.fit(x_train, y_train)
         accuracies.append(accuracy_score(y_test, classifier.predict(x_test)))
 
-        # # val
-        # val_size = len(test_index)
-        # test_index = np.random.choice(train_index, val_size, replace=False).tolist()
-        # train_index = [i for i in train_index if not i in test_index]
-
-        # x_train, x_test = x[train_index], x[test_index]
-        # y_train, y_test = y[train_index], y[test_index]
-        # # x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.1)
-        # if search:
-        #     params = {'C':[0.001, 0.01,0.1,1,10,100,1000]}
-        #     classifier = GridSearchCV(SVC(), params, cv=5, scoring='accuracy', verbose=0)
-        # else:
-        #     classifier = SVC(C=10)
-        # classifier.fit(x_train, y_train)
-        # accuracies_val.append(accuracy_score(y_test, classifier.predict(x_test)))
-
-        # break
-
     accuracies = np.array(accuracies)
     return accuracies.mean(), accuracies.std()
-    # return np.mean(accuracies_val), np.mean(accuracies)
 
 def evaluate_embedding(embeddings, labels, search=True):
     labels = preprocessing.LabelEncoder().fit_transform(labels)
@@ -255,36 +232,9 @@ def evaluate_embedding(embeddings, labels, search=True):
     acc = 0
     acc_val = 0
 
-    '''
-    _acc_val, _acc = logistic_classify(x, y)
-    if _acc_val > acc_val:
-        acc_val = _acc_val
-        acc = _acc
-    '''
-
     _acc_val, _acc = svc_classify(x,y, search)
     if _acc_val > acc_val:
         acc_val = _acc_val
         acc = _acc
 
-    """
-    _acc_val, _acc = linearsvc_classify(x, y, search)
-    if _acc_val > acc_val:
-        acc_val = _acc_val
-        acc = _acc
-    """
-    '''
-    _acc_val, _acc = randomforest_classify(x, y, search)
-    if _acc_val > acc_val:
-        acc_val = _acc_val
-        acc = _acc
-    '''
-
-    # print(acc_val, acc)
-
     return acc_val, acc
-
-'''
-if __name__ == '__main__':
-    evaluate_embedding('./data', 'ENZYMES', np.load('tmp/emb.npy'))
-'''

@@ -144,12 +144,7 @@ def train(epoch):
     for data in train_loader:
         data = data.to(device)
         optimizer.zero_grad()
-        # print(data.x.shape)
-        # [ num_nodes x num_node_labels ]
-        # print(data.edge_index.shape)
-        #  [2 x num_edges ]
-        # print(data.batch.shape)
-        # [ num_nodes ]
+
         output = model(data.x, data.edge_index, data.batch)
         loss = F.nll_loss(output, data.y)
         loss.backward()
@@ -189,8 +184,6 @@ if __name__ == '__main__':
             kf = KFold(n_splits=10, shuffle=True, random_state=None)
             for train_index, test_index in kf.split(dataset):
 
-                # x_train, x_test = x[train_index], x[test_index]
-                # y_train, y_test = y[train_index], y[test_index]
                 train_dataset = [dataset[int(i)] for i in list(train_index)]
                 test_dataset = [dataset[int(i)] for i in list(test_index)]
                 print('len(train_dataset)', len(train_dataset))
@@ -198,8 +191,6 @@ if __name__ == '__main__':
 
                 train_loader = DataLoader(train_dataset, batch_size=128)
                 test_loader = DataLoader(test_dataset, batch_size=128)
-                # print('train', len(train_loader))
-                # print('test', len(test_loader))
 
                 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
                 model = Net().to(device)

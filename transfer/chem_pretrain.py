@@ -101,7 +101,7 @@ def cycle_index(num, shift):
 
 class Discriminator(nn.Module):
     def __init__(self, hidden_dim):
-        super(Discriminator, self).__init__()
+        super().__init__()
         self.weight = nn.Parameter(torch.Tensor(hidden_dim, hidden_dim))
         self.reset_parameters()
 
