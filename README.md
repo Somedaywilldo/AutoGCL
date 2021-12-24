@@ -24,7 +24,15 @@ $ python download_dataset.py
 
 ## Semi-supervised Learning
 
-## Transfer Learning
+## Unsupervised Learning
+
+### Run
+
+```shell
+$ sh un_exp.sh
+```
+
+## Transfer `Learning`
 
 ### Prepare the Dataset
 
