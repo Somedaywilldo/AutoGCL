@@ -1,13 +1,9 @@
-view_generator.py
-__init__.py
 __pycache__
+*.pyc
 augs.py
 data
-datasets.py
 environment.yml
 exp
-feature_expansion.py
-image_dataset.py
 joint_strategy_vis.ipynb
 old
 paper_mnist_vis.ipynb
@@ -25,3 +21,4 @@ transfer.md
 semi_supervised
 dataset/
 *.zip
+tmp/

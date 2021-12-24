@@ -17,7 +17,7 @@ import torch.nn.functional as F
 from torch import optim
 from torch_geometric import data
 
-from torch_geometric.data import DataLoader
+from torch_geometric.loader import DataLoader
 from torch_geometric.transforms import Constant
 
 from us_losses import *
