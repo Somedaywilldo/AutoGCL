@@ -18,7 +18,7 @@ run1.sh
 run2.sh
 .ipynb_checkpoints
 transfer.md
-semi_supervised
+# semi_supervised
 dataset/
 *.zip
 tmp/
