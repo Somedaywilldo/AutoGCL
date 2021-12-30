@@ -1,6 +1,6 @@
 __pycache__
 *.pyc
-augs.py
+# augs.py
 data
 environment.yml
 exp
@@ -10,7 +10,7 @@ paper_mnist_vis.ipynb
 # pretrain_models
 # unsupervised
 unsupervised/unsupervised_exp
-utils.py
+# utils.py
 .vscode
 .DS_Store
 run0.sh
