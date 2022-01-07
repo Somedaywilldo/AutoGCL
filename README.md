@@ -4,6 +4,8 @@ Yin Yihang, Qingzhong Wang, Siyu Huang, Haoyi Xiong, Xiang Zhang
 
 ## Full Paper
 
+![framework](framework.png)
+
 Please check our arXiv version [here](https://arxiv.org/abs/2109.10259) for the full paper with supplementary.
 
 ## Requirement
