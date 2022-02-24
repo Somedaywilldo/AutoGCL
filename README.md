@@ -2,11 +2,11 @@
 
 Yin Yihang, Qingzhong Wang, Siyu Huang, Haoyi Xiong, Xiang Zhang
 
-## Full Paper
+## Paper, Poster and Presentation
 
 ![framework](framework.png)
 
-Please check our arXiv version [here](https://arxiv.org/abs/2109.10259) for the full paper with supplementary.
+Please check our arXiv version [here](https://arxiv.org/abs/2109.10259) for the full paper with supplementary. We also provide our [poster](poster.pdf) in this repo. Our oral presentation video at AAAI-2022 can be found on YouTube, for both the [brief introduction](https://youtu.be/k5qiR8frfaM) and the [full presentation](https://youtu.be/37iavACXCIw).
 
 ## Requirement
 
