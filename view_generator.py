@@ -281,8 +281,6 @@ class ViewGenerator(VGAE):
 
         data.x = data.x.float()
         x = x.float()
-        # embed()
-        # exit()
         x.requires_grad = requires_grad
         
         p = self.encoder(data)
@@ -293,12 +291,26 @@ class ViewGenerator(VGAE):
         keep_sample = real_sample
         # + attr_mask_sample
 
-        keep_idx = torch.nonzero(keep_sample, as_tuple=False).view(-1,)
 
-        # embed()
-        # exit()
+        # real_sample = sample[:,0]
+        # # attr_mask_sample = sample[:,2]
+        # keep_sample = real_sample 
+        # # + attr_mask_sample
+
+        # keep_idx = torch.nonzero(keep_sample, as_tuple=False).view(-1,)
+        # edge_index, _ = subgraph(keep_idx, edge_index)
+
+        # drop_idx = torch.ones(data.num_nodes, dtype=bool)
+        # drop_idx[keep_idx] = False
+        # x[drop_idx] = 0
+
+        # # attr_mask_idx = attr_mask_sample.bool()
+        # # token = data.x.detach().mean()
+        # # x[attr_mask_idx] = token
+
+
+        keep_idx = torch.nonzero(keep_sample, as_tuple=False).view(-1,)
         edge_index, edge_attr = subgraph(keep_idx, edge_index, edge_attr, num_nodes=data.num_nodes)
-        
 
         x = x * keep_sample.view(-1, 1)
 
