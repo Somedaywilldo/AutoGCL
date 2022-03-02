@@ -639,7 +639,8 @@ def joint_cl_exp(
             weight_decay,
             epoch_select,
             with_eval_mode=True,
-            semi_split=None):
+            semi_split=None,
+            add_mask=False):
 
     assert epoch_select in ['val_max', 'test_max'], epoch_select
 
@@ -669,8 +670,8 @@ def joint_cl_exp(
         model = model_func(dataset)
         model.to(device)
 
-        view_gen1 = ViewGenerator(dataset, 128, GIN_NodeWeightEncoder)
-        view_gen2 = ViewGenerator(dataset, 128, GIN_NodeWeightEncoder)
+        view_gen1 = ViewGenerator(dataset, 128, GIN_NodeWeightEncoder, add_mask)
+        view_gen2 = ViewGenerator(dataset, 128, GIN_NodeWeightEncoder, add_mask)
         view_gen1 = view_gen1.to(device)
         view_gen2 = view_gen2.to(device)
         

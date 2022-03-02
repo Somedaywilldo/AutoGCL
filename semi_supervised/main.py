@@ -53,6 +53,7 @@ parser.add_argument('--res_branch', type=str, default="BNConvReLU")
 parser.add_argument('--dropout', type=float, default=0)
 parser.add_argument('--edge_norm', type=str2bool, default=True)
 parser.add_argument('--with_eval_mode', type=str2bool, default=True)
+parser.add_argument('--add_mask', type=str2bool, default=False)
 
 parser.add_argument('--aug_ratio', type=float, default=0.2)
 parser.add_argument('--semi_split', type=int, default=10, help='percent of semi training data')
@@ -508,7 +509,8 @@ def run_joint_cl_exp(args, device, logger):
             weight_decay=0,
             epoch_select=args.epoch_select,
             with_eval_mode=args.with_eval_mode,
-            semi_split=args.semi_split)
+            semi_split=args.semi_split,
+            add_mask=args.add_mask)
 
         summary1 = 'data={}, model={}, feat={}, eval={}'.format(
             dataset_name, net, feat_str, args.epoch_select)

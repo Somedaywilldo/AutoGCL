@@ -134,7 +134,7 @@ class GIN_VEncoder(torch.nn.Module):
         return mu, logstd
 
 class GIN_NodeWeightEncoder(torch.nn.Module):
-    def __init__(self, dataset, dim):
+    def __init__(self, dataset, dim, add_mask=False):
         super().__init__()
 
         num_features = dataset.num_features
@@ -156,9 +156,15 @@ class GIN_NodeWeightEncoder(torch.nn.Module):
         # self.conv4 = GINConv(nn4)
         # self.bn4 = torch.nn.BatchNorm1d(dim)
 
-        nn5 = Sequential(Linear(dim, dim), ReLU(), Linear(dim, 2))
-        self.conv5 = GINConv(nn5)
-        self.bn5 = torch.nn.BatchNorm1d(2)
+        nn5 = None
+        if add_mask == True:
+            nn5 = Sequential(Linear(dim, dim), ReLU(), Linear(dim, 3))
+            self.conv5 = GINConv(nn5)
+            self.bn5 = torch.nn.BatchNorm1d(3)
+        else:
+            nn5 = Sequential(Linear(dim, dim), ReLU(), Linear(dim, 2))
+            self.conv5 = GINConv(nn5)
+            self.bn5 = torch.nn.BatchNorm1d(2)
     
     def forward(self, data):        
         x, edge_index = data.x, data.edge_index
@@ -177,8 +183,9 @@ class GIN_NodeWeightEncoder(torch.nn.Module):
         return x
 
 class ViewGenerator(VGAE):
-    def __init__(self, dataset, dim, encoder):
-        encoder = encoder(dataset, dim)
+    def __init__(self, dataset, dim, encoder, add_mask=False):
+        self.add_mask = add_mask
+        encoder = encoder(dataset, dim, self.add_mask)
         super().__init__(encoder=encoder)
 
     def sample_view(self, data):
@@ -287,32 +294,21 @@ class ViewGenerator(VGAE):
         sample = F.gumbel_softmax(p, hard=True)
 
         real_sample = sample[:,0]
-        # attr_mask_sample = sample[:,2]
-        keep_sample = real_sample
-        # + attr_mask_sample
-
-
-        # real_sample = sample[:,0]
-        # # attr_mask_sample = sample[:,2]
-        # keep_sample = real_sample 
-        # # + attr_mask_sample
-
-        # keep_idx = torch.nonzero(keep_sample, as_tuple=False).view(-1,)
-        # edge_index, _ = subgraph(keep_idx, edge_index)
-
-        # drop_idx = torch.ones(data.num_nodes, dtype=bool)
-        # drop_idx[keep_idx] = False
-        # x[drop_idx] = 0
-
-        # # attr_mask_idx = attr_mask_sample.bool()
-        # # token = data.x.detach().mean()
-        # # x[attr_mask_idx] = token
-
-
+        attr_mask_sample = None
+        if self.add_mask == True:
+            attr_mask_sample = sample[:,2]
+            keep_sample = real_sample + attr_mask_sample
+        else:
+            keep_sample = real_sample
+        
         keep_idx = torch.nonzero(keep_sample, as_tuple=False).view(-1,)
         edge_index, edge_attr = subgraph(keep_idx, edge_index, edge_attr, num_nodes=data.num_nodes)
-
         x = x * keep_sample.view(-1, 1)
+
+        if self.add_mask == True:
+            attr_mask_idx = attr_mask_sample.bool()
+            token = data.x.detach().mean()
+            x[attr_mask_idx] = token
 
         data.x = x
         data.edge_index = edge_index
