@@ -26,7 +26,7 @@ $ python download_dataset.py
 
 ## Semi-supervised Learning
 
-There are many settings for semi-supervised learning, you can change to other experiments by changing the **--exp** flag.
+There are many settings for semi-supervised learning, you can change to other experiments by changing the **--exp** flag. The node attribute augmentation is by default disabled, you can enable it by setting the **--add_mask** flag to True.  
 
 ```shell
 $ python main.py --exp=joint_cl_exp --semi_split=10 --dataset=MUTAG --save=joint_cl_exp --epochs=30 --batch_size=128 --lr=0.01
